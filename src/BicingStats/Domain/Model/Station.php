@@ -43,9 +43,9 @@ class Station
 
     private function hydrateFromApiData(array $apiData)
     {
-        $this->id = $apiData['StationId'];
+        $this->id = $apiData['StationID'];
         $this->name = $apiData['StationName'];
-        $this->districtCode = $apiData['DistrictCode'];
+        $this->districtCode = $apiData['DisctrictCode'];
         $this->availableBikes = $apiData['StationAvailableBikes'];
         $this->freeSlots = $apiData['StationFreeSlot'];
         $this->address = new Address(
