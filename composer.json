@@ -1,0 +1,22 @@
+{
+    "name": "alexcarol/bicing-stats",
+    "authors": [
+        {
+            "name": "Alex Carol",
+            "email": "alex.carol.c@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0",
+        "phpunit/phpunit": "~4.2"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": {"": "src"}
+    }
+}
