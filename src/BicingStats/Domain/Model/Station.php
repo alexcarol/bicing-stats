@@ -37,6 +37,8 @@ class Station
     {
         $instance = new static();
         $instance->hydrateFromApiData($apiData);
+
+        return $instance;
     }
 
     private function hydrateFromApiData(array $apiData)

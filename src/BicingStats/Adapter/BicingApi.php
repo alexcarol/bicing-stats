@@ -2,6 +2,7 @@
 
 namespace BicingStats\Adapter;
 
+use BicingStats\Domain\Model\Station;
 use Buzz\Browser;
 
 class BicingApi
@@ -20,9 +21,13 @@ class BicingApi
         $response = $this->browser->post(self::BICING_URL);
 
         $stations = $this->parse($response->getContent());
-        var_dump($stations);
 
-        return $stations;
+        return array_map(
+            function($element) {
+                return Station::constructFromApiData($element);
+            },
+            $stations
+        );
     }
 
     private function parse($rawContent)
