@@ -2,6 +2,7 @@
 
 namespace BicingStats\Adapter;
 
+use BicingStats\Domain\Model\Collection\StationCollection;
 use BicingStats\Domain\Model\Station;
 use Buzz\Browser;
 
@@ -16,18 +17,20 @@ class BicingApi
         $this->browser = $browser;
     }
 
-    public function getAllStations()
+    public function getSnapshot()
     {
         $response = $this->browser->post(self::BICING_URL);
 
         $stations = $this->parse($response->getContent());
 
-        return array_map(
+        $stationArray = array_map(
             function($element) {
                 return Station::constructFromApiData($element);
             },
             $stations
         );
+
+        return new StationCollection($stationArray, time());
     }
 
     private function parse($rawContent)

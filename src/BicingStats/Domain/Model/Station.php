@@ -129,7 +129,7 @@ class Station
     /**
      * @var array
      */
-    public function getData()
+    public function toArray()
     {
         $data = array();
 

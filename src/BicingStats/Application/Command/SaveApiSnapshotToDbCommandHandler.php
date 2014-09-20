@@ -30,10 +30,8 @@ final class SaveApiSnapshotToDbCommandHandler implements CommandHandler
 
     public function handle(Command $command)
     {
-        $stations = $this->bicingApi->getAllStations();
+        $stationCollection = $this->bicingApi->getSnapshot();
 
-        foreach ($stations as $station) {
-            $this->stationRepository->save($station);
-        }
+        $this->stationRepository->saveCollection($stationCollection);
     }
 }

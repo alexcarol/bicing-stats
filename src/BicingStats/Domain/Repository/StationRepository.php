@@ -3,7 +3,7 @@
 namespace BicingStats\Domain\Repository;
 
 use AlexCarol\Component\Storage\Storage;
-use BicingStats\Domain\Model\Station;
+use BicingStats\Domain\Model\Collection\StationCollection;
 
 class StationRepository
 {
@@ -17,8 +17,8 @@ class StationRepository
         $this->storage = $storage;
     }
 
-    public function save(Station $station)
+    public function saveCollection(StationCollection $stationCollection)
     {
-        $this->storage->save($station->getData());
+        $this->storage->save($stationCollection->toArray());
     }
 }
