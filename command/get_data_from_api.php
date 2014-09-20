@@ -4,7 +4,8 @@ use Buzz\Browser;
 
 require_once 'vendor/autoload.php';
 
-$bicingApi = new \BicingStats\Adapter\BicingApi(new Browser());
+$application = new \BicingStats\BicingStatsApplication();
 
+$bicingApi = $application->getService('bicing_stats.bicing_api');
 $stations = $bicingApi->getAllStations();
 var_dump(reset($stations));

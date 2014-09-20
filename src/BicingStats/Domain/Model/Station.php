@@ -127,31 +127,16 @@ class Station
     }
 
     /**
-     *     'StationID' =>
-    string(1) "1"
-    'StationName' =>
-    string(36) "01 - C/ GRAN VIA CORTS CATALANES 760"
-    'DisctrictCode' =>
-    string(1) "2"
-    'AddressGmapsLongitude' =>
-    string(20) "2.180042000000000000"
-    'AddressGmapsLatitude' =>
-    string(20) "41.39795200000000000"
-    'StationAvailableBikes' =>
-    string(2) "17"
-    'StationFreeSlot' =>
-    string(1) "2"
-    'AddressZipCode' =>
-    string(5) "08013"
-    'AddressStreet1' =>
-    string(24) "Gran Via Corts Catalanes"
-    'AddressNumber' =>
-    string(3) "760"
-    'NearbyStationList' =>
-    string(14) "24,369,387,426"
-    'StationStatusCode' =>
-    string(3) "OPN"
+     * @var array
      */
+    public function getData()
+    {
+        $data = array();
 
+        foreach ($this as $property => $value) {
+            $data[$property] = $value;
+        }
 
+        return $data;
+    }
 }

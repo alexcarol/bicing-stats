@@ -1,0 +1,16 @@
+services:
+    bicing_stats.bicing_api:
+        class: BicingStats\Adapter\BicingApi
+        arguments:
+            - @buzz.browser
+
+    buzz.browser:
+        class: Buzz\Browser
+
+    bicing_stats.domain.repository.station:
+        class: BicingStats\Domain\Repository\StationRepository
+        arguments:
+            - @bicing_stats.adapter.storage.txt_file
+
+    bicing_stats.adapter.storage.txt_file:
+        class: BicingStats\Adapter\Storage\FileStorage

@@ -31,11 +31,6 @@ class BicingApiSpec extends ObjectBehavior
         $this->shouldHaveType('BicingStats\Adapter\BicingApi');
     }
 
-    function it_returns_current_state()
-    {
-        //$this->getAllStations()->shouldReturn([]);
-    }
-
     function it_parses_properly(MessageInterface $messageInterface)
     {
         $messageInterface->getContent()->willReturn(
@@ -69,6 +64,7 @@ JSON
 
         $this->browser->post(BicingApi::BICING_URL)->willReturn($messageInterface);
 
-        $this->getAllStations()->shouldReturn(['f']);
+        $stationType = 'BicingStats\Domain\Model\Station';
+        $this->getAllStations()->shouldHaveCount(1);;
     }
 }
