@@ -1,0 +1,27 @@
+BicingStats\Domain\Model\Station\Station:
+    type: entity
+    id:
+        id:
+            type: integer
+
+    fields:
+        name:
+            type: string
+            length: 100
+        districtCode:
+            type: integer
+        nearbyStationIds:
+            type: simple_array
+        addressNumber:
+            type: integer
+            nullable: true
+        longitude:
+            type: float
+        latitude:
+            type: float
+        addressStreet:
+            type: string
+            length: 100
+        addressZipCode:
+            type: string
+            length: 10

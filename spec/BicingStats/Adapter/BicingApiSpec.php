@@ -64,7 +64,6 @@ JSON
 
         $this->browser->post(BicingApi::BICING_URL)->willReturn($messageInterface);
 
-        $stationType = 'BicingStats\Domain\Model\Station';
         $this->getSnapshot()->shouldHaveCount(1);;
     }
 }

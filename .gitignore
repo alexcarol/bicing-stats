@@ -1,2 +1,7 @@
 /vendor/
 /bin/
+/web/bundles/
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep

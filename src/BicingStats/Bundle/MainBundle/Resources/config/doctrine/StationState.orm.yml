@@ -1,0 +1,19 @@
+BicingStats\Domain\Model\Station\StationState:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        statusCode:
+            type: string
+        availableBikes:
+            type: integer
+        time:
+            type: datetime
+        freeSlots:
+            type: integer
+    manyToOne:
+        station:
+            targetEntity: BicingStats\Domain\Model\Station\Station

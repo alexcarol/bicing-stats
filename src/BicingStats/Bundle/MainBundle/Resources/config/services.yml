@@ -2,10 +2,7 @@ services:
     bicing_stats.bicing_api:
         class: BicingStats\Adapter\BicingApi
         arguments:
-            - @buzz.browser
-
-    buzz.browser:
-        class: Buzz\Browser
+            - @buzz
 
     bicing_stats.domain.repository.station:
         class: BicingStats\Domain\Repository\StationRepository
