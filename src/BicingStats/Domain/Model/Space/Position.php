@@ -7,32 +7,32 @@ class Position
     /**
      * @var int
      */
-    private $x;
+    private $longitude;
 
     /**
      * @var int
      */
-    private $y;
+    private $latitude;
 
-    public function __construct($x, $y)
+    public function __construct($longitude, $latitude)
     {
-        $this->x = $x;
-        $this->y = $y;
+        $this->longitude = $longitude;
+        $this->latitude = $latitude;
     }
 
     /**
      * @return int
      */
-    public function getX()
+    public function getLongitude()
     {
-        return $this->x;
+        return $this->longitude;
     }
 
     /**
      * @return int
      */
-    public function getY()
+    public function getLatitude()
     {
-        return $this->y;
+        return $this->latitude;
     }
 }

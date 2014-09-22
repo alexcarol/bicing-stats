@@ -9,7 +9,8 @@
     "require": {
         "kriswallsmith/buzz": "dev-master",
         "symfony/dependency-injection": "~2.5.4",
-        "symfony/config": "~2.5.4"
+        "symfony/config": "~2.5.4",
+        "symfony/console": "~2.5.4"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0",

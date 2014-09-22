@@ -3,6 +3,7 @@
 namespace BicingStats;
 
 use AlexCarol\Component\Framework\Command;
+use AlexCarol\Component\Framework\Query;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -43,11 +44,11 @@ final class BicingStatsApplication
     {
         $this
             ->serviceContainer
-            ->get('command_handler.' . $query->getName())
+            ->get('query_handler.' . $query->getName())
             ->handle($query);
     }
 
-    public function getService($service)
+    private function getService($service)
     {
         return $this->serviceContainer->get($service);
     }
