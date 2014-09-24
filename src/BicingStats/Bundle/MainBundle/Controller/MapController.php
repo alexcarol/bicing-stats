@@ -2,6 +2,7 @@
 
 namespace BicingStats\Bundle\MainBundle\Controller;
 
+use BicingStats\Bundle\MainBundle\Repository\StationStateRepository;
 use Ivory\GoogleMap\Overlays\InfoWindow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,6 +16,7 @@ final class MapController extends Controller
      */
     public function currentStationAction()
     {
+        /** @var StationStateRepository $repository */
         $repository = $this->getDoctrine()->getRepository('StationMapping:StationState');
         $data = $repository->findLastSnapshot();
 
@@ -29,19 +31,19 @@ final class MapController extends Controller
 
         $infoWindowBuilder = $this->get('ivory_google_map.info_window.builder');
 
-        foreach ($data as $element) {
-            $latitude = $element['latitude'];
-            $longitude = $element['longitude'];
-
+        foreach ($data as $stationState) {
             $marker = $markerBuilder->build();
-            $marker->setPosition($latitude, $longitude);
+            $station = $stationState->getStation();
+            $marker->setPosition(
+                $station->getLatitude(),
+                $station->getLongitude()
+            );
             $infoWindow = $infoWindowBuilder->build();
             $infoWindow->setContent(
                 sprintf(
-                    'Bikes remaining : %d
-Free spaces: %d',
-                    $element['availableBikes'],
-                    $element['freeSlots']
+                    'Bikes remaining : %d <br />Free spaces: %d',
+                    $stationState->getAvailableBikes(),
+                    $stationState->getFreeSlots()
                 )
             );
 

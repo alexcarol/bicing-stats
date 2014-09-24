@@ -2,20 +2,22 @@
 
 namespace BicingStats\Bundle\MainBundle\Repository;
 
+use BicingStats\Domain\Model\Station\StationState;
 use Doctrine\ORM\EntityRepository;
 
 final class StationStateRepository extends EntityRepository
 {
+    /**
+     * @return StationState[]
+     */
     public function findLastSnapshot()
     {
         $time = $this->getMaxTime();
 
         $query = $this
             ->createQueryBuilder('s')
-            ->select('station.name, s.statusCode, s.availableBikes, s.freeSlots, station.latitude, station.longitude')
-            ->from('StationMapping:Station', 'station')
+            ->select('s')
             ->where('s.time = :time')
-            ->andWhere('station.id = s.station')
             ->setParameter(':time', $time)
             ->getQuery();
 
