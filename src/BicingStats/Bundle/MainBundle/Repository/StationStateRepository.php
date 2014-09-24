@@ -15,7 +15,7 @@ final class StationStateRepository extends EntityRepository
             ->select('station.name, s.statusCode, s.availableBikes, s.freeSlots, station.latitude, station.longitude')
             ->from('StationMapping:Station', 'station')
             ->where('s.time = :time')
-            ->setMaxResults(500)
+            ->andWhere('station.id = s.station')
             ->setParameter(':time', $time)
             ->getQuery();
 
