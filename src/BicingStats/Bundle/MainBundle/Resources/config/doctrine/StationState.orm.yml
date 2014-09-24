@@ -1,5 +1,6 @@
 BicingStats\Domain\Model\Station\StationState:
     type: entity
+    repositoryClass: BicingStats\Bundle\MainBundle\Repository\StationStateRepository
     id:
         id:
             type: integer

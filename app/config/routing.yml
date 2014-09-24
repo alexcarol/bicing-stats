@@ -1,0 +1,3 @@
+main:
+    resource: "@BicingStatsMainBundle/Controller/"
+    type:     annotation
