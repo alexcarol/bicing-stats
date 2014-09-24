@@ -15,7 +15,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "sensio/buzz-bundle": "~1.0.0",
         "friendsofsymfony/rest-bundle": "~1.4.2",
-        "jms/serializer-bundle": "*"
+        "jms/serializer-bundle": "*",
+        "egeloen/google-map-bundle": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
 
+            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+
             new Sensio\Bundle\BuzzBundle\SensioBuzzBundle(),
             new BicingStats\Bundle\MainBundle\BicingStatsMainBundle(),
         );
