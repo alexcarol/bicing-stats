@@ -52,4 +52,36 @@ class StationState
     {
         $this->station = $station;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAvailableBikes()
+    {
+        return $this->availableBikes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFreeSlots()
+    {
+        return $this->freeSlots;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
 }

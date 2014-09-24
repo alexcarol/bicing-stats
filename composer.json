@@ -1,6 +1,7 @@
 {
     "name": "alexcarol/bicing-stats",
     "description": "Bicing Stats",
+    "license": "GPL-3.0",
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.5.*",

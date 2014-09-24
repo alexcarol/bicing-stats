@@ -112,16 +112,42 @@ class Station
     }
 
     /**
-     * @var array
+     * @return mixed
      */
-    public function toArray()
+    public function getAddressNumber()
     {
-        $data = array();
+        return $this->addressNumber;
+    }
 
-        foreach ($this as $property => $value) {
-            $data[$property] = $value;
-        }
+    /**
+     * @return mixed
+     */
+    public function getAddressStreet()
+    {
+        return $this->addressStreet;
+    }
 
-        return $data;
+    /**
+     * @return mixed
+     */
+    public function getAddressZipCode()
+    {
+        return $this->addressZipCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 }
