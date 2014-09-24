@@ -15,7 +15,7 @@ class Address
 
     private $number;
 
-    function __construct(Position $position, $zipCode, $street, $number)
+    public function __construct(Position $position, $zipCode, $street, $number)
     {
         $this->position = $position;
         $this->street = $street;

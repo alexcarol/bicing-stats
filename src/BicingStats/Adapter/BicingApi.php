@@ -2,7 +2,6 @@
 
 namespace BicingStats\Adapter;
 
-use BicingStats\Domain\Model\Collection\StationCollection;
 use BicingStats\Domain\Model\Station\Station;
 use BicingStats\Domain\Model\Station\StationState;
 use Buzz\Browser;
@@ -30,7 +29,7 @@ class BicingApi
         $time = new \DateTime();
 
         return array_map(
-            function($element) use ($time) {
+            function ($element) use ($time) {
                 return StationState::constructFromApiData($element, $time);
             },
             $stations
@@ -40,7 +39,6 @@ class BicingApi
     private function parse($rawContent)
     {
         $content = json_decode($rawContent, true);
-
 
         return $this->getData($content);
     }

@@ -2,7 +2,7 @@
 
 namespace AlexCarol\Component\Framework;
 
-interface CommandHandler
+interface QueryHandler
 {
     /**
      * @param Query $query

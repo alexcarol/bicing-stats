@@ -19,8 +19,6 @@ final class StationStateRepository extends EntityRepository
             ->setParameter(':time', $time)
             ->getQuery();
 
-
-
         return $query->getResult();
     }
 
