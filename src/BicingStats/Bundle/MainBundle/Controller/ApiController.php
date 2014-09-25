@@ -4,6 +4,7 @@ namespace BicingStats\Bundle\MainBundle\Controller;
 
 use BicingStats\Domain\Model\Station\StationState;
 use FOS\RestBundle\Controller\FOSRestController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -11,6 +12,7 @@ final class ApiController extends FOSRestController
 {
     /**
      * @Route("/stationstate")
+     * @Method("GET")
      */
     public function stationStateAction()
     {

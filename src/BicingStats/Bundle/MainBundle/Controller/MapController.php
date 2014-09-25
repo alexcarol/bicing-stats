@@ -3,7 +3,7 @@
 namespace BicingStats\Bundle\MainBundle\Controller;
 
 use BicingStats\Bundle\MainBundle\Repository\StationStateRepository;
-use Ivory\GoogleMap\Overlays\InfoWindow;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +12,7 @@ final class MapController extends Controller
 {
     /**
      * @Route("/map")
+     * @Method("GET")
      * @return Response
      */
     public function currentStationAction()
