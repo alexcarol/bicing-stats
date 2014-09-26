@@ -95,7 +95,7 @@ class StationState
             return false;
         }
 
-        if ($stationState->statusCode != $this->freeSlots) {
+        if ($stationState->statusCode != $this->statusCode) {
             return false;
         }
 
