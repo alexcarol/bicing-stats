@@ -26,6 +26,7 @@ final class ApiController extends FOSRestController
 
                     return array(
                         'name' => $station->getName(),
+                        'id' => $station->getId(),
                         'statusCode' => $stationState->getStatusCode(),
                         'availableBikes' => $stationState->getAvailableBikes(),
                         'freeSlots' => $stationState->getFreeSlots(),

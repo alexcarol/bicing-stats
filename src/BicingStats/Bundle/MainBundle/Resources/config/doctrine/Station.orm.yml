@@ -25,3 +25,7 @@ BicingStats\Domain\Model\Station\Station:
         addressZipCode:
             type: string
             length: 10
+    oneToMany:
+        stationStates:
+            targetEntity: BicingStats\Domain\Model\Station\StationState
+            mappedBy: station

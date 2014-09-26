@@ -4,6 +4,7 @@ namespace BicingStats\Domain\Model\Station;
 
 use BicingStats\Domain\Model\Space\Address;
 use BicingStats\Domain\Model\Space\Position;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Station
 {
@@ -26,9 +27,14 @@ class Station
 
     private $addressZipCode;
 
+    /**
+     * @var ArrayCollection
+     */
+    private $stationStates;
+
     private function __construct()
     {
-
+        $this->stationStates = new ArrayCollection();
     }
 
     /**
@@ -149,5 +155,13 @@ class Station
     public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * @return StationState[]
+     */
+    public function getStationStates()
+    {
+        return $this->stationStates->toArray();
     }
 }

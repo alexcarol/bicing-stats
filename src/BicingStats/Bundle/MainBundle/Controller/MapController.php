@@ -5,15 +5,15 @@ namespace BicingStats\Bundle\MainBundle\Controller;
 use BicingStats\Bundle\MainBundle\Repository\StationStateRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 final class MapController extends Controller
 {
     /**
      * @Route("/map")
      * @Method("GET")
-     * @return Response
+     * @Template()
      */
     public function currentStationAction()
     {
@@ -56,6 +56,8 @@ final class MapController extends Controller
 
         $mapHelper = $this->get('ivory_google_map.helper.map');
 
-        return new Response($mapHelper->render($map));
+        return array(
+            'map' => $mapHelper->render($map)
+        );
     }
 }
