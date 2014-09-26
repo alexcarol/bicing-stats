@@ -29,23 +29,24 @@ class SaveApiSnapshotToDbCommand extends ContainerAwareCommand
             /** @var Station $station */
             $station = $stationRepository->findOneById($stationState->getStation()->getId());
 
-
-            $currentStationState = $station->getCurrentStationState();
-
-            if (!$currentStationState->isEqual($stationState)) {
-                /*
-                 * we should try to find a way to know if there are changes to the "Station" DB,
-                 * maybe with a database listener?
-                 */
-                if (!$station) {
-                    $entityManager->persist($stationState->getStation());
-                } else {
+            if ($station) {
+                $currentStationState = $station->getCurrentStationState();
+                if (!$currentStationState->isEqual($stationState)) {
+                    /*
+                     * we should try to find a way to know if there are changes to the "Station" DB,
+                     * maybe with a database listener?
+                     */
                     $stationState->setStation($station);
+                    $entityManager->persist($stationState);
+                } else {
+                    ++$unsavedCollections;
                 }
-                $entityManager->persist($stationState);
+
             } else {
-                ++$unsavedCollections;
+                $entityManager->persist($stationState->getStation());
+                $entityManager->persist($stationState);
             }
+
         }
 
         $entityManager->flush();
