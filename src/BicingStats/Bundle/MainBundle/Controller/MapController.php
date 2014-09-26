@@ -3,6 +3,7 @@
 namespace BicingStats\Bundle\MainBundle\Controller;
 
 use BicingStats\Bundle\MainBundle\Repository\StationStateRepository;
+use BicingStats\Domain\Model\Station\Station;
 use BicingStats\Domain\Model\Station\StationState;
 use Ivory\GoogleMapBundle\Entity\Marker;
 use Ivory\GoogleMapBundle\Model\Overlays\InfoWindowBuilder;
@@ -21,9 +22,9 @@ final class MapController extends Controller
      */
     public function currentStationAction()
     {
-        /** @var StationStateRepository $repository */
-        $repository = $this->getDoctrine()->getRepository('StationMapping:StationState');
-        $stationStates = $repository->findLastSnapshot();
+        $repository = $this->getDoctrine()->getRepository('StationMapping:Station');
+        /** @var Station[] $stations */
+        $stations = $repository->findAll();
 
         $mapBuilder = $this->get('ivory_google_map.map.builder');
 
@@ -31,13 +32,21 @@ final class MapController extends Controller
         $map->setAutoZoom(true);
 
         $map->setCenter(41.4150506, 2.1793174);
+        $map->setStylesheetOptions(
+            array(
+                'width' => '100%',
+                'height' => '100%',
+                'position' => 'absolute',
+                'left' => 0,
+            )
+        );
 
         $markerBuilder = $this->get('ivory_google_map.marker.builder');
 
         $infoWindowBuilder = $this->get('ivory_google_map.info_window.builder');
 
-        foreach ($stationStates as $stationState) {
-            $marker = $this->getMarker($markerBuilder, $stationState, $infoWindowBuilder);
+        foreach ($stations as $station) {
+            $marker = $this->getMarker($markerBuilder, $station->getCurrentStationState(), $infoWindowBuilder);
 
             $map->addMarker($marker);
         }
