@@ -164,4 +164,12 @@ class Station
     {
         return $this->stationStates->toArray();
     }
+
+    /**
+     * @return StationState
+     */
+    public function getCurrentStationState()
+    {
+        return $this->stationStates->last();
+    }
 }

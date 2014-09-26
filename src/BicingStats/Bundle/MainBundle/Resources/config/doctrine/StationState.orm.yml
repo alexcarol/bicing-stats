@@ -18,3 +18,4 @@ BicingStats\Domain\Model\Station\StationState:
     manyToOne:
         station:
             targetEntity: BicingStats\Domain\Model\Station\Station
+            inversedBy: stationStates

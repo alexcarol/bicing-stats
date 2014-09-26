@@ -84,4 +84,25 @@ class StationState
     {
         return $this->time;
     }
+
+    public function isEqual(StationState $stationState)
+    {
+        if ($stationState->availableBikes != $this->availableBikes) {
+            return false;
+        }
+
+        if ($stationState->freeSlots != $this->freeSlots) {
+            return false;
+        }
+
+        if ($stationState->statusCode != $this->freeSlots) {
+            return false;
+        }
+
+        if ($stationState->station->getId() != $this->station->getId()) {
+            return false;
+        }
+
+        return true;
+    }
 }

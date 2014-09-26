@@ -2,6 +2,7 @@
 
 namespace BicingStats\Bundle\MainBundle\Command;
 
+use BicingStats\Domain\Model\Station\Station;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,23 +24,33 @@ class SaveApiSnapshotToDbCommand extends ContainerAwareCommand
 
         $stationStates = $bicingApi->getSnapshot();
 
+        $unsavedCollections = 0;
         foreach ($stationStates as $stationState) {
+            /** @var Station $station */
             $station = $stationRepository->findOneById($stationState->getStation()->getId());
-            /*
-             * we should try to find a way to know if there are changes to the "Station" DB,
-             * maybe with a database listener?
-             */
-            if (!$station) {
-                $entityManager->persist($stationState->getStation());
+
+
+            $currentStationState = $station->getCurrentStationState();
+
+            if (!$currentStationState->isEqual($stationState)) {
+                /*
+                 * we should try to find a way to know if there are changes to the "Station" DB,
+                 * maybe with a database listener?
+                 */
+                if (!$station) {
+                    $entityManager->persist($stationState->getStation());
+                } else {
+                    $stationState->setStation($station);
+                }
+                $entityManager->persist($stationState);
             } else {
-                // look for differences
-                $stationState->setStation($station);
+                ++$unsavedCollections;
             }
-            $entityManager->persist($stationState);
         }
 
         $entityManager->flush();
 
+        $this->getContainer()->get('logger')->info(sprintf('Skipped saving of %d station states', $unsavedCollections));
         $output->writeln('Saved successfully!');
     }
 }

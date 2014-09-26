@@ -3,6 +3,10 @@
 namespace BicingStats\Bundle\MainBundle\Controller;
 
 use BicingStats\Bundle\MainBundle\Repository\StationStateRepository;
+use BicingStats\Domain\Model\Station\StationState;
+use Ivory\GoogleMapBundle\Entity\Marker;
+use Ivory\GoogleMapBundle\Model\Overlays\InfoWindowBuilder;
+use Ivory\GoogleMapBundle\Model\Overlays\MarkerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -19,7 +23,7 @@ final class MapController extends Controller
     {
         /** @var StationStateRepository $repository */
         $repository = $this->getDoctrine()->getRepository('StationMapping:StationState');
-        $data = $repository->findLastSnapshot();
+        $stationStates = $repository->findLastSnapshot();
 
         $mapBuilder = $this->get('ivory_google_map.map.builder');
 
@@ -32,32 +36,46 @@ final class MapController extends Controller
 
         $infoWindowBuilder = $this->get('ivory_google_map.info_window.builder');
 
-        foreach ($data as $stationState) {
-            $marker = $markerBuilder->build();
-            $station = $stationState->getStation();
-            $marker->setPosition(
-                $station->getLatitude(),
-                $station->getLongitude()
-            );
-            $infoWindow = $infoWindowBuilder->build();
-            $infoWindow->setContent(
-                sprintf(
-                    'Bikes remaining : %d <br />Free spaces: %d',
-                    $stationState->getAvailableBikes(),
-                    $stationState->getFreeSlots()
-                )
-            );
-
-            $marker->setInfoWindow($infoWindow);
+        foreach ($stationStates as $stationState) {
+            $marker = $this->getMarker($markerBuilder, $stationState, $infoWindowBuilder);
 
             $map->addMarker($marker);
-
         }
 
         $mapHelper = $this->get('ivory_google_map.helper.map');
 
-        return array(
-            'map' => $mapHelper->render($map)
+        return array('map' => $mapHelper->render($map));
+    }
+
+    /**
+     * @param $markerBuilder
+     * @param $stationState
+     * @param $infoWindowBuilder
+     *
+     * @return Marker
+     */
+    private function getMarker(
+        MarkerBuilder $markerBuilder,
+        StationState $stationState,
+        InfoWindowBuilder $infoWindowBuilder
+    ) {
+        $marker = $markerBuilder->build();
+        $station = $stationState->getStation();
+        $marker->setPosition(
+            $station->getLatitude(),
+            $station->getLongitude()
         );
+        $infoWindow = $infoWindowBuilder->build();
+        $infoWindow->setContent(
+            sprintf(
+                'Bikes remaining : %d <br />Free spaces: %d',
+                $stationState->getAvailableBikes(),
+                $stationState->getFreeSlots()
+            )
+        );
+
+        $marker->setInfoWindow($infoWindow);
+
+        return $marker;
     }
 }
