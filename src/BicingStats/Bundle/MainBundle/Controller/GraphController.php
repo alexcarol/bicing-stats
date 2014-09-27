@@ -15,27 +15,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class GraphController extends Controller
 {
     /**
-     * @Route("/stationstate/{id}")
+     * @Route("/stationstate/{stationId}")
      * @Template()
      */
-    public function chartAction($id)
+    public function chartAction($stationId)
     {
         $stationRepository = $this->getDoctrine()->getRepository('StationMapping:Station');
         /**
          * @var Station $station
          */
-        $station = $stationRepository->findOneById($id);
+        $station = $stationRepository->findOneById($stationId);
 
 
-//        $availableBikes = array_map(function (StationState $stationState) {
-//                return $stationState->getAvailableBikes();
-//            }, $station->getStationStates());
+        $availableBikes = array_map(
+            function (StationState $stationState) {
+                $currentTime = $stationState->getTime()->getTimestamp();
+                $relativeTimeOfTheDayInMinutes = ($currentTime % 86400) / 3600;
 
-        $availableBikes = array(5);
-        //var_dump($availableBikes);
+                return [$relativeTimeOfTheDayInMinutes, $stationState->getAvailableBikes()];
+            },
+            $station->getStationStates()
+        );
 
         $series = array(
-            array("name" => "Data Serie Name",    "data" => $availableBikes),
+            array(
+                "name" => sprintf('Available bikes for %d', $stationId),
+                'data' => $availableBikes,
+            ),
         );
 
         $chart = new Highchart();
