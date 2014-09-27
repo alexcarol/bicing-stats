@@ -39,7 +39,7 @@ class GraphController extends Controller
             $station->getStationStates()
         );
 
-        $availableBikes[] = [time()/3600, $station->getCurrentStationState()->getAvailableBikes()];
+        $availableBikes[] = [(time() % 86400)/3600, $station->getCurrentStationState()->getAvailableBikes()];
 
         $series = array(
             array(
