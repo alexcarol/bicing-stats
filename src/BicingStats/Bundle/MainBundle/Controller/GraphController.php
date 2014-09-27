@@ -5,6 +5,7 @@ namespace BicingStats\Bundle\MainBundle\Controller;
 use BicingStats\Domain\Model\Station\Station;
 use BicingStats\Domain\Model\Station\StationState;
 use Ob\HighchartsBundle\Highcharts\Highchart;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class GraphController extends Controller
 {
     /**
-     * @Route("/stationstate/{stationId}")
+     * @Route("/stationstate/{stationId}", requirements={"stationId"="\d+"}, name="station_state_graph")
+     * @Method("GET")
      * @Template()
      */
     public function chartAction($stationId)
@@ -36,6 +38,8 @@ class GraphController extends Controller
             },
             $station->getStationStates()
         );
+
+        $availableBikes[] = [time()/3600, $station->getCurrentStationState()->getAvailableBikes()];
 
         $series = array(
             array(

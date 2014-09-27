@@ -2,7 +2,6 @@
 
 namespace BicingStats\Bundle\MainBundle\Controller;
 
-use BicingStats\Bundle\MainBundle\Repository\StationStateRepository;
 use BicingStats\Domain\Model\Station\Station;
 use BicingStats\Domain\Model\Station\StationState;
 use Ivory\GoogleMapBundle\Entity\Marker;
@@ -75,11 +74,13 @@ final class MapController extends Controller
             $station->getLongitude()
         );
         $infoWindow = $infoWindowBuilder->build();
+        $path = $this->get('router')->generate('station_state_graph', array('stationId' => $station->getId()));
         $infoWindow->setContent(
             sprintf(
-                'Bikes remaining : %d <br />Free spaces: %d',
+                'Bikes remaining : %d <br />Free spaces: %d <br /> Link: <a href="%s">Graph</a> ',
                 $stationState->getAvailableBikes(),
-                $stationState->getFreeSlots()
+                $stationState->getFreeSlots(),
+                $path
             )
         );
 
