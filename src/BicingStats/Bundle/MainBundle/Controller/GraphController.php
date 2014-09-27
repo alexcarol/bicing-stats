@@ -28,16 +28,16 @@ class GraphController extends Controller
          */
         $station = $stationRepository->findOneById($stationId);
 
+        $startingTime = time() - 86400;
 
-        $availableBikes = array_map(
-            function (StationState $stationState) {
-                $currentTime = $stationState->getTime()->getTimestamp();
+        $availableBikes = [];
+        foreach ($station->getStationStates() as $stationState){
+            $currentTime = $stationState->getTime()->getTimestamp();
+            if ($currentTime >= $startingTime) { // optimize this for
                 $relativeTimeOfTheDayInMinutes = ($currentTime % 86400) / 3600;
-
-                return [$relativeTimeOfTheDayInMinutes, $stationState->getAvailableBikes()];
-            },
-            $station->getStationStates()
-        );
+                $availableBikes[] = [$relativeTimeOfTheDayInMinutes, $stationState->getAvailableBikes()];
+            }
+        };
 
         $availableBikes[] = [(time() % 86400)/3600, $station->getCurrentStationState()->getAvailableBikes()];
 
