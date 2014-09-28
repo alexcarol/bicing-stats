@@ -19,3 +19,4 @@ BicingStats\Domain\Model\Station\StationState:
         station:
             targetEntity: BicingStats\Domain\Model\Station\Station
             inversedBy: stationStates
+            fetch: EAGER

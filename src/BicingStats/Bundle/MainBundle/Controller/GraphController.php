@@ -32,10 +32,10 @@ class GraphController extends Controller
 
         $availableBikes = [];
         foreach ($station->getStationStates() as $stationState){
-            $currentTime = $stationState->getTime()->getTimestamp();
-            if ($currentTime >= $startingTime) { // optimize this for
-                $relativeTimeOfTheDayInMinutes = ($currentTime - $startingTime) / 3600;
-                $availableBikes[] = [$relativeTimeOfTheDayInMinutes, $stationState->getAvailableBikes()];
+            $stationStateTime = $stationState->getTime()->getTimestamp();
+            if ($stationStateTime >= $startingTime) { // this needs to be optimized
+                $relativeTimeOfTheDayInHours = ($stationStateTime - $startingTime) / 3600; // this is not really the relative time of the day, need to calculate properly
+                $availableBikes[] = [$relativeTimeOfTheDayInHours, $stationState->getAvailableBikes()];
             }
         };
 
