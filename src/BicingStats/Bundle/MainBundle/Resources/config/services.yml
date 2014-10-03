@@ -4,10 +4,17 @@ services:
         arguments:
             - @buzz
 
-    bicing_stats.domain.repository.station:
-        class: BicingStats\Domain\Repository\StationRepository
+    bicing_stats.adapter.bicing_state_snapshot_taker:
+        class: BicingStats\Adapter\BicingStateSnapshotTaker
         arguments:
-            - @bicing_stats.adapter.storage.txt_file
+            - @bicing_stats.bicing_api
+            - @doctrine.orm.entity_manager
+            - @bicing_stats.station_state_repository
+            - @logger
 
-    bicing_stats.adapter.storage.txt_file:
-        class: BicingStats\Adapter\Storage\FileStorage
+    bicing_stats.station_state_repository:
+        class: BicingStats\Bundle\MainBundle\Repository\StationStateRepository # the value of class does not matter
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - BicingStats\Domain\Model\Station\StationState

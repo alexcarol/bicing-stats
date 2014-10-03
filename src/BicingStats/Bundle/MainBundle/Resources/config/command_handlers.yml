@@ -1,6 +1,0 @@
-services:
-    command_handler.save_api_snapshot_to_db:
-        class: BicingStats\Application\Command\SaveApiSnapshotToDbCommandHandler
-        arguments:
-            - @bicing_stats.bicing_api
-            - @bicing_stats.domain.repository.station
